@@ -31,6 +31,7 @@ for rule in rules:
     possible_pages.add(first)
     possible_pages.add(second)
 
+# Didn't work cause the input doesn't have one defined order, rude
 # correct_order = []
 # size = len(possible_pages)
 # while len(correct_order) < size:
