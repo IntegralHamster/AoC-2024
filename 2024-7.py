@@ -22,10 +22,8 @@ def line_combinations (num_inp):
         return ans
 
 def evaluate_line (expression):
-    ans = 0
+    ans = int(expression[0])
     for i in range(len(expression)):
-        if i == 0:
-            ans += int(expression[i])
         if expression[i] == '+':
             ans += int(expression[i+1])
         if expression[i] == '*':
