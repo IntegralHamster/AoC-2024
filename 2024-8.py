@@ -2,7 +2,6 @@ with open('input.txt') as f:
     lines = [line.strip() for line in f.readlines()]
 
 antennas = {}
-
 for y in range(len(lines)):
     for x in range(len(lines[y])):
         if lines[y][x] != '.':
