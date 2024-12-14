@@ -30,28 +30,42 @@ print(quad1*quad2*quad3*quad4)
 
 time = 0
 max_slopes = 999999999999
+min_no_neighbours = len(positions)
 while True:
     slopes = set()
     time += 1
     new_positions = []
     for i in range(len(positions)):
         new_positions.append(((positions[i][0] + time*velocities[i][0]) % width, (positions[i][1] + time*velocities[i][1]) % height))
+    # for i in range(len(new_positions)):
+    #     for j in range(len(new_positions)):
+    #         if i != j:
+    #             x1, y1, x2, y2 = new_positions[i][0], new_positions[i][1], new_positions[j][0], new_positions[j][1]
+    #             if x2 - x1 == 0:
+    #                 slopes.add((0, 1))
+    #             elif y2 - y1 == 0:
+    #                 slopes.add((0, 1))
+    #             else:
+    #                 d = gcd(y2 - y1, x2 - x1)
+    #                 slopes.add(((x2 - x1)/d, (y2 - y1)/d))
+    # if len(slopes) <= max_slopes:
+    #     max_slopes = len(slopes)
+    #     print(time, max_slopes)
+    # if time % 50 == 0:
+    #     print(time) # after all you want to know ho
+    no_neighbours = 0
     for i in range(len(new_positions)):
-        for j in range(len(new_positions)):
-            if i != j:
-                x1, y1, x2, y2 = new_positions[i][0], new_positions[i][1], new_positions[j][0], new_positions[j][1]
-                if x2 - x1 == 0:
-                    slopes.add((0, 1))
-                elif y2 - y1 == 0:
-                    slopes.add((0, 1))
-                else:
-                    d = gcd(y2 - y1, x2 - x1)
-                    slopes.add(((x2 - x1)/d, (y2 - y1)/d))
-    if len(slopes) <= max_slopes:
-        max_slopes = len(slopes)
-        print(time, max_slopes)
-    if time % 50 == 0:
-        print(time) # after all you want to know how slow it is
+        flag = True
+        for dx in (-1,0,1):
+            for dy in (-1,0,1):
+                if not (dx == 0 and dy == 0):
+                    if (new_positions[i][0] + dx, new_positions[i][1] + dy) in new_positions:
+                        flag = False
+        if flag:
+            no_neighbours += 1
+    if no_neighbours <= min_no_neighbours:
+        min_no_neighbours = no_neighbours
+        print(no_neighbours,time)
 
-# settle down for runtime within 10+ min
+# settle down for runtime within 10+ min with first option, 1 minute with second
 
